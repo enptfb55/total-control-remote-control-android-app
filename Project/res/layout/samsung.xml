@@ -1,0 +1,202 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark" >
+
+    <View
+        android:id="@+id/anchor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true" />
+        />
+
+    <Button
+        android:id="@+id/tv_power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/darker_gray"
+        android:text="@string/power" >
+    </Button>
+
+    <Button
+        android:id="@+id/tv_vol_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_vol_up"
+        android:layout_below="@+id/tv_chan_up"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/darker_gray"
+        android:text="@string/vol_down" />
+
+    <Button
+        android:id="@+id/tv_chan_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_vol_down"
+        android:layout_alignBottom="@+id/tv_vol_down"
+        android:layout_alignLeft="@+id/tv_chan_up"
+        android:background="@android:color/darker_gray"
+        android:text="@string/ch_down" />
+
+    <Button
+        android:id="@+id/tv_chan_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_vol_up"
+        android:layout_alignBottom="@+id/tv_vol_up"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/tv_vol_down"
+        android:background="@android:color/darker_gray"
+        android:text="@string/ch_up" />
+
+    <Button
+        android:id="@+id/tv_vol_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="142dp"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/anchor"
+        android:background="@android:color/darker_gray"
+        android:text="@string/vol_up" />
+
+    <Button
+        android:id="@+id/tv_enter"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/anchor"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="75dp"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/tv_arrow_left"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignBaseline="@+id/tv_enter"
+        android:layout_alignBottom="@+id/tv_enter"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/tv_enter"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/tv_arrow_up"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/tv_enter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/tv_arrow_right"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignBaseline="@+id/tv_enter"
+        android:layout_alignBottom="@+id/tv_enter"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/tv_enter"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/tv_arrow_down"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/tv_arrow_up"
+        android:layout_below="@+id/tv_arrow_right"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/tv_exit"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_return"
+        android:layout_alignBottom="@+id/tv_return"
+        android:layout_toRightOf="@+id/tv_chan_down"
+        android:background="@android:color/darker_gray"
+        android:text="Exit" />
+
+    <Button
+        android:id="@+id/tv_mute"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_menu"
+        android:layout_toLeftOf="@+id/tv_arrow_left"
+        android:background="@android:color/darker_gray"
+        android:text="Mute" />
+
+    <Button
+        android:id="@+id/tv_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_arrow_up"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:background="@android:color/darker_gray"
+        android:text="Menu" />
+
+    <Button
+        android:id="@+id/tv_return"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_arrow_down"
+        android:layout_alignLeft="@+id/tv_mute"
+        android:background="@android:color/darker_gray"
+        android:text="Return" />
+
+    <Button
+        android:id="@+id/tv_sleep"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_menu"
+        android:layout_toRightOf="@+id/tv_arrow_right"
+        android:background="@android:color/darker_gray"
+        android:text="Sleep" />
+
+    <ImageButton
+        android:id="@+id/tv_play"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_enter"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"
+        android:src="@drawable/av_play" >
+    </ImageButton>
+
+    <EditText
+        android:id="@+id/number_field"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/send"
+        android:ems="10"
+        android:inputType="number|text"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"
+        android:text="Send" />
+
+    <Button
+        android:id="@+id/tv_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/darker_gray"
+        android:text="Source" />
+
+</RelativeLayout>

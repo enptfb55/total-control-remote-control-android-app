@@ -10,7 +10,12 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class SettingsActivity extends Activity {
 	private BluetoothThread mBluetoothThread;
@@ -25,19 +30,40 @@ public class SettingsActivity extends Activity {
 		TCRCService global = (TCRCService) this.getApplication();
 		mBluetoothThread = global.mBluetoothThread;
 
-		final Button connect_to_device_button = (Button) findViewById(R.id.connect_to_device_button);
+		final ListView lv = (ListView) findViewById(R.id.settings_list);
+		ArrayAdapter<String> ad = new ArrayAdapter<String>(
+				SettingsActivity.this.getApplicationContext(),
+				android.R.layout.simple_list_item_1);
+		ad.add("Connect to device");
+		if (mBluetoothThread.isConnected()) {
+			ad.add("Set Remote");
+		}
 
-		connect_to_device_button.setOnClickListener(new View.OnClickListener() {
+		lv.setAdapter(ad);
+
+		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onItemClick(AdapterView<?> adptr, View v, int pos,
+					long id) {
 				// TODO Auto-generated method stub
-				Intent connect_to_device_activity = new Intent(
-						SettingsActivity.this.getApplicationContext(),
-						ConnectToPairedActivity.class);
-				startActivity(connect_to_device_activity);
+				String item = (String) lv.getItemAtPosition(pos);
+
+				if (item.equals("Connect to device")) {
+					Intent connect_to_device_activity = new Intent(
+							SettingsActivity.this.getApplicationContext(),
+							ConnectToPairedActivity.class);
+					startActivity(connect_to_device_activity);
+				} else if (item.equals("Set Remote")) {
+					Intent set_remote_activity = new Intent(
+							SettingsActivity.this.getApplicationContext(),
+							SetRemote.class);
+
+					startActivity(set_remote_activity);
+				}
 			}
 		});
+
 	}
 
 	@Override

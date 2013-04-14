@@ -78,6 +78,14 @@ public class ConnectToPairedActivity extends Activity {
 
 		init();
 
+		while (!mBluetoothThread.getmAdapter().isEnabled()) {
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		Set<BluetoothDevice> pairedSet = mBluetoothThread.getmAdapter()
 				.getBondedDevices();
 
@@ -198,27 +206,19 @@ public class ConnectToPairedActivity extends Activity {
 
 			String str2 = str1.substring(str1.length() - 17);
 
-			Toast.makeText(
-					ConnectToPairedActivity.this.getApplicationContext(), str2,
-					1).show();
-
 			mBluetoothThread.setmDevice(mBluetoothThread.getmAdapter()
 					.getRemoteDevice(str2));
 
-			/*
-			 * Intent pairDevice = new Intent(
-			 * "android.bluetooth.device.action.PAIRING_REQUEST");
-			 * 
-			 * pairDevice.putExtra("android.bluetooth.device.extra.DEVICE",
-			 * mBluetoothThread.getmDevice());
-			 * 
-			 * pairDevice.putExtra(
-			 * "android.bluetooth.device.extra.PAIRING_VARIANT", 0);
-			 * 
-			 * startActivityForResult(pairDevice, 1);
-			 */
-
-			mBluetoothThread.ConnectToDevice();
+			if (mBluetoothThread.ConnectToDevice()) {
+				Toast.makeText(
+						ConnectToPairedActivity.this.getApplicationContext(),
+						"Connected", 1).show();
+				finish();
+			} else {
+				Toast.makeText(
+						ConnectToPairedActivity.this.getApplicationContext(),
+						"Failed to connect", 1).show();
+			}
 		}
 
 	};
@@ -233,10 +233,19 @@ public class ConnectToPairedActivity extends Activity {
 						ConnectToPairedActivity.this.getApplicationContext(),
 						"Bluetooth not enabled", 1).show();
 			}
+
 			break;
 
 		default:
 			break;
+		}
+
+		Set<BluetoothDevice> pairedSet = mBluetoothThread.getmAdapter()
+				.getBondedDevices();
+
+		if (pairedSet.size() > 0) {
+			findViewById(R.id.paired_devices_title).setVisibility(0);
+			getPairedDevices();
 		}
 	}
 }

@@ -1,12 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/set_remote"
+        android:title="@string/choose_remote">
+    </item>
+    <item
+        android:id="@+id/connect_to_device"
+        android:title="@string/connect_to_device">
+    </item>
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="100"
+        android:title="@string/menu_settings">
+    </item>
+    <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="@string/menu_settings"/>
-    <item
-        android:id="@+id/menu_settings"
-        android:title="@string/menu_settings"/>
+        android:title="@string/menu_settings">
+    </item>
 
 </menu>

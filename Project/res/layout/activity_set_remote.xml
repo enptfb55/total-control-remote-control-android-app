@@ -5,9 +5,10 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@+id/settings_list"
+        android:id="@+id/remote_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="#000" >
     </ListView>
 
 </LinearLayout>

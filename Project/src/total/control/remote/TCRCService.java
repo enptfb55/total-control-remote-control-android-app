@@ -6,4 +6,5 @@ import android.app.Application;
 public class TCRCService extends Application {
 	final String TAG = "Total Control Remote Control";
 	BluetoothThread mBluetoothThread = new BluetoothThread();
+	String Remote = null;
 }

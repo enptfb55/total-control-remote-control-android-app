@@ -11,6 +11,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 @SuppressLint("NewApi")
@@ -37,17 +38,11 @@ public class BluetoothThread extends Thread implements Serializable {
 	}
 
 	public void run() {
-		while (true) {
-			if (mDevice != null) {
-				ConnectToDevice();
-
-				if (mSocket != null) {
-					Log.v(TAG, "connected");
-				}
-
-			}
-
-		}
+		/*
+		 * while (true) { if (mDevice != null) { ConnectToDevice(); }
+		 * 
+		 * }
+		 */
 	}
 
 	public void cancel() {
@@ -66,14 +61,24 @@ public class BluetoothThread extends Thread implements Serializable {
 		this.mAdapter.startDiscovery();
 	}
 
-	public void ConnectToDevice() {
+	public boolean ConnectToDevice() {
 		mAdapter.cancelDiscovery();
 
 		try {
 			// mSocket = mDevice.createRfcommSocketToServiceRecord(MY_UUID);
-			mSocket = mDevice
-					.createRfcommSocketToServiceRecord(MY_UUID);
+			mSocket = mDevice.createRfcommSocketToServiceRecord(MY_UUID);
 			mSocket.connect();
+
+			if (mSocket != null) {
+				Log.v(TAG, "connected");
+
+			} else {
+				return false;
+			}
+
+			mInStream = mSocket.getInputStream();
+			mOutStream = mSocket.getOutputStream();
+
 		} catch (IOException connect_e) {
 			Log.v(TAG, "error trying to connect to socket");
 			try {
@@ -82,8 +87,10 @@ public class BluetoothThread extends Thread implements Serializable {
 			} catch (IOException close_e) {
 				Log.v(TAG, "error trying to close socket");
 			}
+			return false;
 		}
 
+		return true;
 	}
 
 	public static UUID getMyUuid() {
@@ -120,6 +127,65 @@ public class BluetoothThread extends Thread implements Serializable {
 
 	public void setmContext(Context mContext) {
 		this.mContext = mContext;
+	}
+
+	public boolean isConnected() {
+		if (mSocket != null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean send(String str) {
+
+		try {
+			mOutStream.write(str.getBytes());
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public boolean sendLine(String str) {
+		String line = str + '\n';
+		return send(line);
+	}
+
+	public String readLine() {
+
+		try {
+			while (true) {
+				byte[] tmp = new byte[1];
+				String hexString = "";
+				StringBuilder string = new StringBuilder();
+
+				if (mInStream.available() > 0) {
+					while (true) {
+						int r = mInStream.read(tmp);
+						hexString = Integer.toString((tmp[0] & 0xff) + 0x100,
+								16).substring(1);
+
+						char chr = (char) Integer.parseInt(hexString, 16);
+						if (chr == '\n') {
+							break;
+						}
+						string.append(chr);
+						if (r == -1 || mInStream.available() <= 0) {
+							break;
+						}
+
+					}
+					System.out.println("Recieved [" + string + "]");
+					return string.toString();
+				}
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
