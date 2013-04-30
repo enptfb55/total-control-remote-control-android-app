@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class ConnectToPairedActivity extends Activity {
+	TCRCService mGlobal = null;
 	private String TAG = null;
 	private ListView pairedList;
 	private ListView scanedList;
@@ -72,9 +73,9 @@ public class ConnectToPairedActivity extends Activity {
 		setContentView(R.layout.activity_connect_to_paired);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		TCRCService global = (TCRCService) this.getApplication();
-		mBluetoothThread = global.mBluetoothThread;
-		TAG = global.TAG;
+		mGlobal = (TCRCService) this.getApplication();
+		mBluetoothThread = mGlobal.mBluetoothThread;
+		TAG = mGlobal.TAG;
 
 		init();
 
@@ -213,6 +214,7 @@ public class ConnectToPairedActivity extends Activity {
 				Toast.makeText(
 						ConnectToPairedActivity.this.getApplicationContext(),
 						"Connected", 1).show();
+				mGlobal.Remote = null;
 				finish();
 			} else {
 				Toast.makeText(

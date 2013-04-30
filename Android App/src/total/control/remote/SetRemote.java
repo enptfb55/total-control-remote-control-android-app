@@ -2,17 +2,17 @@ package total.control.remote;
 
 import BluetoothUtils.BluetoothThread;
 import BluetoothUtils.TCRC_Protocol;
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class SetRemote extends Activity {
 	private BluetoothThread mBluetoothThread;
@@ -26,45 +26,47 @@ public class SetRemote extends Activity {
 		final TCRCService global = (TCRCService) this.getApplication();
 		mBluetoothThread = global.mBluetoothThread;
 
-		if (mBluetoothThread.isConnected()) {
-			final ListView remoteList = (ListView) findViewById(R.id.remote_list);
+		if (!mBluetoothThread.isConnected()) {
+			Toast.makeText(SetRemote.this.getApplicationContext(),
+					"Not connected to TCRC", 1).show();
+		}
 
-			ArrayAdapter<String> remoteListAdapter = new ArrayAdapter<String>(
-					SetRemote.this.getApplicationContext(),
-					android.R.layout.simple_list_item_1);
+		final ListView remoteList = (ListView) findViewById(R.id.remote_list);
 
-			mBluetoothThread.sendLine(TCRC_Protocol.GET_REMOTES.toString());
+		ArrayAdapter<String> remoteListAdapter = new ArrayAdapter<String>(
+				SetRemote.this.getApplicationContext(),
+				android.R.layout.simple_list_item_1);
 
-			while (true) {
-				String line = mBluetoothThread.readLine();
+		mBluetoothThread.sendLine(TCRC_Protocol.GET_REMOTES.toString());
 
-				if (line.equals(TCRC_Protocol.END.toString())) {
-					break;
-				}
+		while (true) {
+			String line = mBluetoothThread.readLine();
 
-				remoteListAdapter.add(line);
-
+			if (line.equals(TCRC_Protocol.END.toString())) {
+				break;
 			}
 
-			remoteList.setAdapter(remoteListAdapter);
-
-			remoteList.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> adapter, View v,
-						int pos, long id) {
-					// TODO Auto-generated method stub
-					String remote = (String) remoteList.getItemAtPosition(pos);
-					mBluetoothThread.sendLine(TCRC_Protocol.SET_REMOTE
-							.toString());
-					mBluetoothThread.sendLine(remote);
-					global.Remote = remote;
-					finish();
-				}
-
-			});
+			remoteListAdapter.add(line);
 
 		}
+
+		remoteList.setAdapter(remoteListAdapter);
+
+		remoteList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View v, int pos,
+					long id) {
+				// TODO Auto-generated method stub
+				String remote = (String) remoteList.getItemAtPosition(pos);
+				mBluetoothThread.sendLine(TCRC_Protocol.SET_REMOTE.toString());
+				mBluetoothThread.sendLine(remote);
+				global.Remote = remote;
+				finish();
+			}
+
+		});
+
 	}
 
 	@Override

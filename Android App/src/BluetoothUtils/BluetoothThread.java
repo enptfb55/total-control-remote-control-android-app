@@ -11,7 +11,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 
 @SuppressLint("NewApi")
@@ -38,11 +37,7 @@ public class BluetoothThread extends Thread implements Serializable {
 	}
 
 	public void run() {
-		/*
-		 * while (true) { if (mDevice != null) { ConnectToDevice(); }
-		 * 
-		 * }
-		 */
+
 	}
 
 	public void cancel() {
@@ -50,7 +45,7 @@ public class BluetoothThread extends Thread implements Serializable {
 			mSocket.close();
 			mSocket = null;
 		} catch (IOException e) {
-			// log error
+			Log.v(TAG, "error trying to close socket");
 		}
 	}
 
@@ -81,12 +76,7 @@ public class BluetoothThread extends Thread implements Serializable {
 
 		} catch (IOException connect_e) {
 			Log.v(TAG, "error trying to connect to socket");
-			try {
-				mSocket.close();
-				mSocket = null;
-			} catch (IOException close_e) {
-				Log.v(TAG, "error trying to close socket");
-			}
+			cancel();
 			return false;
 		}
 
@@ -142,6 +132,7 @@ public class BluetoothThread extends Thread implements Serializable {
 		try {
 			mOutStream.write(str.getBytes());
 		} catch (IOException e) {
+			cancel();
 			return false;
 		}
 
@@ -183,7 +174,7 @@ public class BluetoothThread extends Thread implements Serializable {
 
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			cancel();
 		}
 		return null;
 	}

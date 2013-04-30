@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,48 +45,7 @@ public class MainActivity extends Activity {
 			startActivity(connect_to_device_activity);
 		}
 
-		OnClickListener handleButtonClick = new handleClick();
-
-		final Button power = (Button) findViewById(R.id.tv_power);
-		final Button vol_up = (Button) findViewById(R.id.tv_vol_up);
-		final Button vol_down = (Button) findViewById(R.id.tv_vol_down);
-		final Button ch_up = (Button) findViewById(R.id.tv_chan_up);
-		final Button ch_down = (Button) findViewById(R.id.tv_chan_down);
-		final Button arrow_up = (Button) findViewById(R.id.tv_arrow_up);
-		final Button arrow_down = (Button) findViewById(R.id.tv_arrow_down);
-		final Button arrow_left = (Button) findViewById(R.id.tv_arrow_left);
-		final Button arrow_right = (Button) findViewById(R.id.tv_arrow_right);
-		final Button enter = (Button) findViewById(R.id.tv_enter);
-		final Button menu = (Button) findViewById(R.id.tv_menu);
-		final Button mute = (Button) findViewById(R.id.tv_mute);
-		final Button sleep = (Button) findViewById(R.id.tv_sleep);
-		final Button return_ = (Button) findViewById(R.id.tv_return);
-		final Button exit = (Button) findViewById(R.id.tv_exit);
-		final ImageButton play = (ImageButton) findViewById(R.id.tv_play);
-		final Button source = (Button) findViewById(R.id.tv_source);
-
-		power.setOnClickListener(handleButtonClick);
-		vol_up.setOnClickListener(handleButtonClick);
-		vol_down.setOnClickListener(handleButtonClick);
-		ch_up.setOnClickListener(handleButtonClick);
-		ch_down.setOnClickListener(handleButtonClick);
-		arrow_up.setOnClickListener(handleButtonClick);
-		arrow_down.setOnClickListener(handleButtonClick);
-		arrow_left.setOnClickListener(handleButtonClick);
-		arrow_right.setOnClickListener(handleButtonClick);
-		enter.setOnClickListener(handleButtonClick);
-		menu.setOnClickListener(handleButtonClick);
-		mute.setOnClickListener(handleButtonClick);
-		sleep.setOnClickListener(handleButtonClick);
-		return_.setOnClickListener(handleButtonClick);
-		exit.setOnClickListener(handleButtonClick);
-		play.setOnClickListener(handleButtonClick);
-		source.setOnClickListener(handleButtonClick);
-
-		final Button sendButton = (Button) findViewById(R.id.send);
-
-		sendButton.setOnClickListener(new numberListener());
-
+		loadButtons();
 	}
 
 	@Override
@@ -119,12 +77,174 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	private void loadButtons() {
+
+		if (mGlobal.Remote == null) {
+			return;
+		}
+
+		OnClickListener handleButtonClick = new handleClick();
+		OnClickListener numberClick = new numberListener();
+
+		final Button power = (Button) findViewById(R.id.tv_power);
+		final Button vol_up = (Button) findViewById(R.id.tv_vol_up);
+		final Button vol_down = (Button) findViewById(R.id.tv_vol_down);
+		final Button ch_up = (Button) findViewById(R.id.tv_chan_up);
+		final Button ch_down = (Button) findViewById(R.id.tv_chan_down);
+		final Button arrow_up = (Button) findViewById(R.id.tv_arrow_up);
+		final Button arrow_down = (Button) findViewById(R.id.tv_arrow_down);
+		final Button arrow_left = (Button) findViewById(R.id.tv_arrow_left);
+		final Button arrow_right = (Button) findViewById(R.id.tv_arrow_right);
+		final Button enter = (Button) findViewById(R.id.tv_enter);
+		final Button menu = (Button) findViewById(R.id.tv_menu);
+		final Button mute = (Button) findViewById(R.id.tv_mute);
+		final Button sleep = (Button) findViewById(R.id.tv_sleep);
+		final Button return_ = (Button) findViewById(R.id.tv_return);
+		final Button exit = (Button) findViewById(R.id.tv_exit);
+		final Button source = (Button) findViewById(R.id.tv_source);
+		final ImageButton play = (ImageButton) findViewById(R.id.tv_play);
+		final ImageButton stop = (ImageButton) findViewById(R.id.tv_stop);
+		final ImageButton ff = (ImageButton) findViewById(R.id.tv_ff);
+		final ImageButton rr = (ImageButton) findViewById(R.id.tv_rr);
+		final ImageButton prev = (ImageButton) findViewById(R.id.tv_prev);
+		final ImageButton next = (ImageButton) findViewById(R.id.tv_next);
+		final Button sendButton = (Button) findViewById(R.id.send);
+		final EditText textField = (EditText) findViewById(R.id.number_field);
+
+		power.setOnClickListener(handleButtonClick);
+		vol_up.setOnClickListener(handleButtonClick);
+		vol_down.setOnClickListener(handleButtonClick);
+		ch_up.setOnClickListener(handleButtonClick);
+		ch_down.setOnClickListener(handleButtonClick);
+		arrow_up.setOnClickListener(handleButtonClick);
+		arrow_down.setOnClickListener(handleButtonClick);
+		arrow_left.setOnClickListener(handleButtonClick);
+		arrow_right.setOnClickListener(handleButtonClick);
+		enter.setOnClickListener(handleButtonClick);
+		menu.setOnClickListener(handleButtonClick);
+		mute.setOnClickListener(handleButtonClick);
+		sleep.setOnClickListener(handleButtonClick);
+		return_.setOnClickListener(handleButtonClick);
+		exit.setOnClickListener(handleButtonClick);
+		source.setOnClickListener(handleButtonClick);
+		play.setOnClickListener(handleButtonClick);
+		stop.setOnClickListener(handleButtonClick);
+		rr.setOnClickListener(handleButtonClick);
+		ff.setOnClickListener(handleButtonClick);
+		prev.setOnClickListener(handleButtonClick);
+		next.setOnClickListener(handleButtonClick);
+		sendButton.setOnClickListener(numberClick);
+
+		if (mGlobal.Remote.equals("Samsung")) {
+			power.setVisibility(View.VISIBLE);
+			vol_up.setVisibility(View.VISIBLE);
+			vol_down.setVisibility(View.VISIBLE);
+			ch_up.setVisibility(View.VISIBLE);
+			ch_down.setVisibility(View.VISIBLE);
+			arrow_up.setVisibility(View.VISIBLE);
+			arrow_down.setVisibility(View.VISIBLE);
+			arrow_left.setVisibility(View.VISIBLE);
+			arrow_right.setVisibility(View.VISIBLE);
+			enter.setVisibility(View.VISIBLE);
+			menu.setVisibility(View.VISIBLE);
+			mute.setVisibility(View.VISIBLE);
+			sleep.setVisibility(View.VISIBLE);
+			return_.setVisibility(View.VISIBLE);
+			exit.setVisibility(View.VISIBLE);
+			source.setVisibility(View.VISIBLE);
+			play.setVisibility(View.INVISIBLE);
+			stop.setVisibility(View.INVISIBLE);
+			rr.setVisibility(View.INVISIBLE);
+			ff.setVisibility(View.INVISIBLE);
+			prev.setVisibility(View.INVISIBLE);
+			next.setVisibility(View.INVISIBLE);
+			sendButton.setVisibility(View.VISIBLE);
+			textField.setVisibility(View.VISIBLE);
+		} else if (mGlobal.Remote.equals("Apple")) {
+			power.setVisibility(View.INVISIBLE);
+			vol_up.setVisibility(View.INVISIBLE);
+			vol_down.setVisibility(View.INVISIBLE);
+			ch_up.setVisibility(View.INVISIBLE);
+			ch_down.setVisibility(View.INVISIBLE);
+			arrow_up.setVisibility(View.VISIBLE);
+			arrow_down.setVisibility(View.VISIBLE);
+			arrow_left.setVisibility(View.VISIBLE);
+			arrow_right.setVisibility(View.VISIBLE);
+			enter.setVisibility(View.VISIBLE);
+			menu.setVisibility(View.VISIBLE);
+			mute.setVisibility(View.INVISIBLE);
+			sleep.setVisibility(View.INVISIBLE);
+			return_.setVisibility(View.INVISIBLE);
+			exit.setVisibility(View.INVISIBLE);
+			source.setVisibility(View.INVISIBLE);
+			play.setVisibility(View.VISIBLE);
+			stop.setVisibility(View.VISIBLE);
+			rr.setVisibility(View.VISIBLE);
+			ff.setVisibility(View.VISIBLE);
+			prev.setVisibility(View.INVISIBLE);
+			next.setVisibility(View.INVISIBLE);
+			sendButton.setVisibility(View.INVISIBLE);
+			textField.setVisibility(View.INVISIBLE);
+		} else if (mGlobal.Remote.equals("Sony")) {
+			power.setVisibility(View.VISIBLE);
+			vol_up.setVisibility(View.INVISIBLE);
+			vol_down.setVisibility(View.INVISIBLE);
+			ch_up.setVisibility(View.INVISIBLE);
+			ch_down.setVisibility(View.INVISIBLE);
+			arrow_up.setVisibility(View.VISIBLE);
+			arrow_down.setVisibility(View.VISIBLE);
+			arrow_left.setVisibility(View.VISIBLE);
+			arrow_right.setVisibility(View.VISIBLE);
+			enter.setVisibility(View.VISIBLE);
+			menu.setVisibility(View.VISIBLE);
+			mute.setVisibility(View.INVISIBLE);
+			sleep.setVisibility(View.INVISIBLE);
+			return_.setVisibility(View.VISIBLE);
+			exit.setVisibility(View.INVISIBLE);
+			source.setVisibility(View.INVISIBLE);
+			play.setVisibility(View.VISIBLE);
+			stop.setVisibility(View.VISIBLE);
+			rr.setVisibility(View.VISIBLE);
+			ff.setVisibility(View.VISIBLE);
+			prev.setVisibility(View.VISIBLE);
+			next.setVisibility(View.VISIBLE);
+			sendButton.setVisibility(View.INVISIBLE);
+			textField.setVisibility(View.INVISIBLE);
+		} else {
+			power.setVisibility(View.VISIBLE);
+			vol_up.setVisibility(View.VISIBLE);
+			vol_down.setVisibility(View.VISIBLE);
+			ch_up.setVisibility(View.VISIBLE);
+			ch_down.setVisibility(View.VISIBLE);
+			arrow_up.setVisibility(View.VISIBLE);
+			arrow_down.setVisibility(View.VISIBLE);
+			arrow_left.setVisibility(View.VISIBLE);
+			arrow_right.setVisibility(View.VISIBLE);
+			enter.setVisibility(View.VISIBLE);
+			menu.setVisibility(View.VISIBLE);
+			mute.setVisibility(View.VISIBLE);
+			sleep.setVisibility(View.VISIBLE);
+			return_.setVisibility(View.VISIBLE);
+			exit.setVisibility(View.VISIBLE);
+			source.setVisibility(View.VISIBLE);
+			play.setVisibility(View.VISIBLE);
+			stop.setVisibility(View.VISIBLE);
+			rr.setVisibility(View.VISIBLE);
+			ff.setVisibility(View.VISIBLE);
+			prev.setVisibility(View.VISIBLE);
+			next.setVisibility(View.VISIBLE);
+			sendButton.setVisibility(View.VISIBLE);
+			textField.setVisibility(View.VISIBLE);
+		}
+
+	}
+
 	private class handleClick implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			vibe.vibrate(20);
+			vibe.vibrate(15);
 			if (!mBluetoothThread.isConnected()) {
 				toaster("Not connected to TCRC device");
 				return;
@@ -178,11 +298,26 @@ public class MainActivity extends Activity {
 			case R.id.tv_chan_down:
 				val = "key_ch-";
 				break;
+			case R.id.tv_source:
+				val = "key_source";
+				break;
 			case R.id.tv_play:
 				val = "key_play";
 				break;
-			case R.id.tv_source:
-				val = "key_source";
+			case R.id.tv_stop:
+				val = "key_stop";
+				break;
+			case R.id.tv_rr:
+				val = "key_rew";
+				break;
+			case R.id.tv_ff:
+				val = "key_fwd";
+				break;
+			case R.id.tv_prev:
+				val = "key_prev";
+				break;
+			case R.id.tv_next:
+				val = "key_next";
 				break;
 			default:
 				return;
@@ -192,6 +327,8 @@ public class MainActivity extends Activity {
 				if (!mBluetoothThread.sendLine(val)) {
 					toaster("Error sending" + val);
 				}
+			} else {
+				toaster("Error. Try recconecting");
 			}
 
 		}
@@ -226,6 +363,8 @@ public class MainActivity extends Activity {
 						if (!mBluetoothThread.sendLine(val)) {
 							toaster("Error sending" + val);
 						}
+					} else {
+						toaster("Error. Try recconecting");
 					}
 				}
 			}
