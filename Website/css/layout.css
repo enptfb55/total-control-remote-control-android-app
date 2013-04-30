@@ -1,0 +1,79 @@
+body {
+	background-color: #000000}
+	
+.choose_button {
+    background-color: #1B4EF3;
+    border-color: #C0C0C0;
+    border-style: solid;
+    font-weight: bold;
+    height: 36px;
+    width: 108px;
+}
+
+.word_button{
+	background-color: #C0C0C0;
+	font-weight: bold;
+	height: 32px;
+	width: 96px;
+}
+
+.power_button{
+	background-color:#FF0000;
+	border-color: #00FF00;
+    border-style: solid;
+	font-weight: bold;
+	height: 32px;
+	width: 96px;
+}
+
+.vert_arrow_button{
+	background-color: #FFFF00;
+	border-color: #C0C0C0;
+	border-style: solid;
+	height: 24px;
+	width:32px;
+}
+
+.horz_arrow_button{
+	background-color: #FFFF00;
+	border-color: #C0C0C0;
+	border-style: solid;
+	height: 32px;
+	width:24px;
+}
+
+.num_button{
+	background-color: #C0C0C0;
+	border-color: #000000;
+	border-style: solid;
+	height: 32px;
+	width: 32px;
+	font-weight: bold;
+}
+
+.up_button{
+	background-color: #C0C0C0;
+	border-color: #00FF00;
+	border-style: solid;
+	height: 32px;
+	width: 64px;
+	font-weight: bold;
+}
+
+.down_button{
+	background-color: #C0C0C0;
+	border-color: #FF0000;
+	border-style: solid;
+	height: 32px;
+	width: 64px;
+	font-weight: bold;
+}
+
+.select_button{
+	background-color: #00FF00;
+	border-color: #C0C0C0;
+	border-style: solid;
+	height: 32px;
+	width: 96px;
+	font-weight: bold;
+}
